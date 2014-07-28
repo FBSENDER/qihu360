@@ -18,11 +18,14 @@ module Qihu
 
           begin
             allowed_methods = [:get, :post, :put, :delete]
+            # get 方法参数有长度限制，而此API调用时使用参数通常会很长...
             if params.include?(:method)
               mehtod = params.delete(:method).downcase.to_sym
-              method = :get unless allowed_methods.include?method
+              #method = :get unless allowed_methods.include?method
+              method = :post unless allowed_methods.include?method
             else
-              method = name.match(/^get/) ? :get : :post
+              #method = name.match(/^get/) ? :get : :post
+              method = :post 
             end
 
             uri_path = uri_path(name)
@@ -43,8 +46,8 @@ module Qihu
               key = data['failures'].kind_of?(Hash) ? 'item' : 0
               code = data['failures'][key]['code'].to_i
               error = data['failures'][key]['message']
-
-              raise Qihu::FailuresError.new(code, error)
+              #api调用存在部分成功部分失败的情况，raise error 后调用方无法处理
+              #raise Qihu::FailuresError.new(code, error)
             end
 
             return r

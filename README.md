@@ -102,8 +102,6 @@
     status = response.status
     headers = response.headers
     body = response.body
-    
-
 
 
 ## 贡献代码
@@ -113,3 +111,8 @@
 3. 提交你的代码 (`git commit -am 'Add some feature'`)
 4. 提交你的分支 (`git push origin my-new-feature`)
 5. 创建一个新的 Pull Request
+
+## 关于本分支
+1. 调用API均使用POST方式
+2. 返回值中包含Failuer节点不会raise error
+3. 便于日常使用
